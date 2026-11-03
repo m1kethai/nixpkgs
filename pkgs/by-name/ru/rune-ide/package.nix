@@ -1,6 +1,6 @@
 {
   lib,
-  buildGoModule,
+  buildGo127Module,
   fetchFromGitHub,
   pkg-config,
   alsa-lib,
@@ -16,7 +16,7 @@
   wayland,
 }:
 
-buildGoModule (finalAttrs: {
+buildGo127Module (finalAttrs: {
   pname = "rune-ide";
   version = "1.3.2";
 
@@ -74,6 +74,22 @@ buildGoModule (finalAttrs: {
     install -Dm644 extra/icon.iconset/icon_512x512.png $out/share/icons/hicolor/512x512/apps/rune.png
     install -Dm644 extra/icon.iconset/icon_512x512@2x.png $out/share/icons/hicolor/1024x1024/apps/rune.png
     install -Dm644 dist/debian/rune.1 -t $out/share/man/man1
+  '';
+
+  postFixup = ''
+    patchelf --add-rpath "${lib.makeLibraryPath [
+      alsa-lib
+      libGL
+      libx11
+      libxcursor
+      libxext
+      libxi
+      libxinerama
+      libxrandr
+      libxxf86vm
+      libxkbcommon
+      wayland
+    ]}" "$out/bin/rune"
   '';
 
   meta = {
