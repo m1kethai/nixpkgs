@@ -17679,6 +17679,11 @@
     github = "m1dugh";
     githubId = 42266017;
   };
+  m1kethai = {
+    name = "Mike Thai";
+    github = "m1kethai";
+    githubId = 15115669;
+  };
   m3l6h = {
     email = "admin@michaelhollingworth.io";
     name = "Michael Hollingworth";
