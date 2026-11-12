@@ -56,6 +56,10 @@ buildGo127Module (finalAttrs: {
     wayland
   ];
 
+  postFixup = ''
+    patchelf --add-rpath "${lib.makeLibraryPath finalAttrs.buildInputs}" "$out/bin/rune"
+  '';
+
   # Mirrors the production ldflags used by upstream's Debian packaging,
   # minus BuildDate, which would make the build non-reproducible.
   ldflags = [
